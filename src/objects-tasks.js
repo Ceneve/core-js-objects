@@ -49,8 +49,12 @@ function mergeObjects(/* objects */) {
  *    removeProperties({name: 'John', age: 30, city: 'New York'}, ['age']) => {name: 'John', city: 'New York'}
  *
  */
-function removeProperties(/* obj, keys */) {
-  throw new Error('Not implemented');
+function removeProperties(obj, keys) {
+  const copyObj = { ...obj };
+  for (let i = 0; i < keys.length; i += 1) {
+    delete copyObj[keys[i]];
+  }
+  return copyObj;
 }
 
 /**
@@ -80,8 +84,8 @@ function compareObjects(obj1, obj2) {
  *    isEmptyObject({}) => true
  *    isEmptyObject({a: 1}) => false
  */
-function isEmptyObject(/* obj */) {
-  throw new Error('Not implemented');
+function isEmptyObject(obj) {
+  return Object.keys(obj).length === 0;
 }
 
 /**
@@ -114,8 +118,17 @@ function makeImmutable(/* obj */) {
  *    makeWord({ a: [0, 1], b: [2, 3], c: [4, 5] }) => 'aabbcc'
  *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
  */
-function makeWord(/* lettersObject */) {
-  throw new Error('Not implemented');
+function makeWord(lettersObject) {
+  const objKeys = Object.keys(lettersObject);
+  const objValues = Object.values(lettersObject);
+  const arr = Array(objValues.flat().length);
+
+  for (let i = 0; i < objKeys.length; i += 1) {
+    for (let j = 0; j < objValues[i].length; j += 1) {
+      arr.splice(objValues[i][j], 1, objKeys[i]);
+    }
+  }
+  return arr.join('');
 }
 
 /**
